@@ -1,0 +1,26 @@
+<div>The third component</div>
+<form [formGroup]="dataPassword">
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <span style="margin-left: 2em">{{dataPassword.controls.password.value}}</span>
+  </div>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Repeat your password</mat-label>
+      <input matInput [type]="hideRep ? 'password' : 'text'" formControlName="repeatedPassword">
+      <button mat-icon-button matSuffix (click)="hideRep = !hideRep" [attr.aria-label]="'Hide repeated password'"
+              [attr.aria-pressed]="hideRep">
+        <mat-icon>{{hideRep ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <span style="margin-left: 2em">{{dataPassword.controls.repeatedPassword.value}}</span>
+  </div>
+</form>
+

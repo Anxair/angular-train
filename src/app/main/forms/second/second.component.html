@@ -1,0 +1,22 @@
+<div>The second component</div>
+<form [formGroup]="dataAbout">
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Country</mat-label>
+      <mat-select formControlName="country">
+        <mat-option value="one">Belarus</mat-option>
+        <mat-option value="two">USA</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <span style="margin-left: 2em">{{dataAbout.controls.country.value}}</span>
+  </div>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>About</mat-label>
+      <textarea matInput formControlName="about"></textarea>
+    </mat-form-field>
+    <span style="margin-left: 2em">{{dataAbout.controls.about.value}}</span>
+  </div>
+</form>
+
+<app-third></app-third>

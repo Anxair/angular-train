@@ -1,0 +1,20 @@
+<div>The first component</div>
+<form [formGroup]="dataRegistration">
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Login</mat-label>
+      <input matInput formControlName="login" required>
+    </mat-form-field>
+    <span style="margin-left: 2em">{{dataRegistration.controls.login.value}}</span>
+  </div>
+
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your email</mat-label>
+      <input matInput placeholder="somebody@example.com" formControlName="email" required>
+      <mat-error *ngIf="dataRegistration.controls.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <span style="margin-left: 2em">{{dataRegistration.controls.email.value}}</span>
+  </div>
+</form>
+<app-second></app-second>
