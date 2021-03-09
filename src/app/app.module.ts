@@ -17,7 +17,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {StoreModule} from '@ngrx/store';
-import {formReducer} from './main/forms/state/form.reducer';
+import {formReducer} from './store/state/form.reducer';
 
 
 @NgModule({

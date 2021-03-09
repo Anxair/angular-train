@@ -8,15 +8,15 @@
         <mat-option value="two">USA</mat-option>
       </mat-select>
     </mat-form-field>
-    <span style="margin-left: 2em">{{dataAbout.controls.country.value}}</span>
+        <span style="margin-left: 2em">{{dataAbout.controls.country.value}}</span>
   </div>
   <div>
     <mat-form-field appearance="fill">
       <mat-label>About</mat-label>
       <textarea matInput formControlName="about"></textarea>
     </mat-form-field>
-    <span style="margin-left: 2em">{{dataAbout.controls.about.value}}</span>
+        <span style="margin-left: 2em">{{dataAbout.controls.about.value}}</span>
   </div>
 </form>
 
-<app-third></app-third>
+<app-third [form]="form"></app-third>

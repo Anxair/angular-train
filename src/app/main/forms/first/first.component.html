@@ -17,4 +17,6 @@
     <span style="margin-left: 2em">{{dataRegistration.controls.email.value}}</span>
   </div>
 </form>
-<app-second></app-second>
+<app-second [form]="dataRegistration"></app-second>
+
+<button mat-button (click)="printForm()">Print</button>

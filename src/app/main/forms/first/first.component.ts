@@ -1,6 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Store} from '@ngrx/store';
 
 @Component({
     selector: 'app-first',
@@ -9,13 +8,14 @@ import {Store} from '@ngrx/store';
 )
 export class FirstComponent {
 
-  constructor(private store: Store<any>) {
+  constructor() {
+    this.dataRegistration = new FormGroup({
+      login: new FormControl('', {updateOn: 'blur'}),
+      email: new FormControl('', [Validators.required, Validators.email])
+    });
   }
 
-  dataRegistration = new FormGroup({
-    login: new FormControl('', {updateOn: 'blur'}),
-    email: new FormControl('', [Validators.required, Validators.email])
-  });
+  dataRegistration: FormGroup;
 
 
   getErrorMessage(): string {
@@ -25,5 +25,8 @@ export class FirstComponent {
     return this.dataRegistration.controls.email.hasError('email') ? 'Not a valid email' : '';
   }
 
+  printForm(): void {
+    console.log(this.dataRegistration.value);
+  }
 
 }
