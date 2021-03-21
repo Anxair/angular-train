@@ -17,6 +17,10 @@
     <span style="margin-left: 2em">{{dataRegistration.controls.email.value}}</span>
   </div>
 </form>
-<app-second [form]="dataRegistration"></app-second>
+<app-second (onCreateForm)="createForm($event)"></app-second>
 
-<button mat-button (click)="printForm()">Print</button>
+<button mat-button (click)="saveForm()">Save form
+  <mat-spinner *ngIf="$isLoad | async"></mat-spinner>
+</button>
+<button mat-button (click)="getForm()">Get form</button>
+

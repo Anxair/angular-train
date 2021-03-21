@@ -1,31 +1,52 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+
+function validatePassword(control: AbstractControl): { [key: string]: boolean } | null {
+  const password = control.get('password').value;
+  const repeatPassword = control.get('repeatedPassword').value;
+  if (password !== repeatPassword) {
+    control.get('repeatedPassword').setErrors({wrongRepeatedPassword: true});
+    return null;
+  } else {
+    control.get('repeatedPassword').setErrors(null);
+    return null;
+  }
+}
 
 @Component({
   selector: 'app-third',
   templateUrl: './third.component.html',
 })
-
 export class ThirdComponent implements OnInit {
+
+  dataPassword: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
   }
 
-  dataPassword = this.formBuilder.group({
-    password: [],
-    repeatedPassword: []
-  });
   hide = true;
   hideRep = true;
 
-  @Input() form: FormGroup;
+  @Output() onCreateForm = new EventEmitter<FormGroup>();
 
   ngOnInit(): void {
-    this.form.addControl('dataPassword', this.dataPassword);
+    this.dataPassword = this.formBuilder.group({
+        password: ['', [Validators.required]],
+        repeatedPassword: ['', [Validators.required]]
+      }, {validators: validatePassword}
+    );
+    this.onCreateForm.emit(this.dataPassword);
   }
 
-  printForm(): void {
-    console.log(this.form.value);
-  }
 
+  getErrorMessage(): string {
+    if (this.dataPassword.controls.password.hasError('required')) {
+      return 'You must enter a value';
+    }
+    if (this.dataPassword.controls.repeatedPassword.hasError('required')) {
+      return 'You must enter a value';
+    }else if (this.dataPassword.controls.repeatedPassword.hasError('wrongRepeatedPassword')) {
+      return 'Password do not match';
+    }
+  }
 }

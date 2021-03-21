@@ -17,8 +17,13 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {StoreModule} from '@ngrx/store';
-import {formReducer} from './store/state/form.reducer';
-
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '../environments/environment';
+import * as forms from '../app/store/reducers/forms.reducer';
+import {reducers} from './store';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {EffectsModule} from '@ngrx/effects';
+import {FormsEffects} from './store/effects/forms.effects';
 
 @NgModule({
   declarations: [
@@ -40,8 +45,11 @@ import {formReducer} from './store/state/form.reducer';
     MatSelectModule,
     MatIconModule,
     MatButtonModule,
-    StoreModule.forRoot({}, {}),
-    StoreModule.forFeature('dataRegistration', formReducer),
+    [StoreModule.forRoot({forms: forms.reducer})],
+    [StoreModule.forRoot(reducers)],
+    EffectsModule.forRoot([FormsEffects]),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

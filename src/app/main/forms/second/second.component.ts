@@ -1,5 +1,5 @@
-import {AfterContentInit, AfterViewInit, Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-second',
@@ -13,13 +13,17 @@ export class SecondComponent implements OnInit {
     about: ['']
   });
 
-  @Input() form: FormGroup;
+  @Output() onCreateForm = new EventEmitter<FormGroup>();
 
   constructor(private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
-    this.form.addControl('dataAbout', this.dataAbout);
+    this.onCreateForm.emit(this.dataAbout);
   }
 
+  createForm(formGroup: FormGroup): void {
+    this.dataAbout.addControl('dataPassword', formGroup);
+    this.onCreateForm.emit(this.dataAbout);
+  }
 }

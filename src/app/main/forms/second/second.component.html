@@ -4,8 +4,8 @@
     <mat-form-field appearance="fill">
       <mat-label>Country</mat-label>
       <mat-select formControlName="country">
-        <mat-option value="one">Belarus</mat-option>
-        <mat-option value="two">USA</mat-option>
+        <mat-option value="Belarus">Belarus</mat-option>
+        <mat-option value="USA">USA</mat-option>
       </mat-select>
     </mat-form-field>
         <span style="margin-left: 2em">{{dataAbout.controls.country.value}}</span>
@@ -19,4 +19,4 @@
   </div>
 </form>
 
-<app-third [form]="form"></app-third>
+<app-third (onCreateForm)="createForm($event)"></app-third>
