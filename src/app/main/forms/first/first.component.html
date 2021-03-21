@@ -18,9 +18,10 @@
   </div>
 </form>
 <app-second (onCreateForm)="createForm($event)"></app-second>
-
-<button mat-button (click)="saveForm()">Save form
-  <mat-spinner *ngIf="$isLoad | async"></mat-spinner>
-</button>
+<div>
+  <button mat-button (click)="saveForm()">Save form
+    <mat-spinner *ngIf="$isLoad | async"></mat-spinner>
+  </button>
+</div>
 <button mat-button (click)="getForm()">Get form</button>
 

@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DataService} from '../../../../service/data.service';
 import {Store} from '@ngrx/store';
 import {saveForm} from '../../../store/actions/forms.actions';
-import {isLoad} from '../../../store';
+import {getCurrentForm, isLoad} from '../../../store';
 import {Observable} from 'rxjs';
 
 export interface DataForm {
@@ -11,7 +11,7 @@ export interface DataForm {
   email: string;
   country: string;
   about: string;
-  Password: string;
+  password: string;
   repeatedPassword: string;
 }
 
@@ -20,15 +20,15 @@ export class DataFormClass implements DataForm {
   email: string;
   country: string;
   about: string;
-  Password: string;
+  password: string;
   repeatedPassword: string;
 
-  constructor(login: string, email: string, country: string, about: string, Password: string, repeatedPassword: string) {
+  constructor(login: string, email: string, country: string, about: string, password: string, repeatedPassword: string) {
     this.login = login;
     this.email = email;
     this.country = country;
     this.about = about;
-    this.Password = Password;
+    this.password = password;
     this.repeatedPassword = repeatedPassword;
   }
 }
@@ -58,6 +58,7 @@ export class FirstComponent implements OnInit {
   }
 
   $isLoad: Observable<boolean>;
+  currentForm: DataForm;
   dataRegistration: FormGroup;
 
   ngOnInit(): void {
@@ -93,7 +94,13 @@ export class FirstComponent implements OnInit {
   }
 
   getForm(): void {
-    console.log('get form');
+    this.store.select(getCurrentForm).subscribe(value => {
+      this.currentForm = value;
+      this.dataRegistration.patchValue(this.currentForm);
+      this.dataRegistration.controls.dataAbout.patchValue(this.currentForm);
+      const dataAbout = this.dataRegistration.controls.dataAbout as FormGroup;
+      dataAbout.controls.dataPassword.patchValue(this.currentForm);
+    });
   }
 
   createForm(form: FormGroup): void {
