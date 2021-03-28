@@ -5,6 +5,7 @@ import {Store} from '@ngrx/store';
 import {saveForm} from '../../../store/actions/forms.actions';
 import {getCurrentForm, isLoad} from '../../../store';
 import {Observable} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
 
 export interface DataForm {
   login: string;
@@ -41,7 +42,9 @@ export class DataFormClass implements DataForm {
 export class FirstComponent implements OnInit {
 
   constructor(private dataService: DataService,
-              private store: Store) {
+              private store: Store,
+              private router: Router,
+              private route: ActivatedRoute) {
     this.dataRegistration = new FormGroup({
       login: new FormControl('', {updateOn: 'blur'}),
       email: new FormControl('', [Validators.required, Validators.email])
@@ -84,10 +87,6 @@ export class FirstComponent implements OnInit {
       }));
       this.dataRegistration.reset();
 
-      // const data = new DataForm(this.dataRegistration.controls.login.value, this.dataRegistration.controls.email.value,
-      //   dataRegistration.controls.country.value, dataRegistration.controls.about.value,
-      //   dataPassword.controls.password.value, dataPassword.controls.repeatedPassword.value);
-      // this.dataService.saveData(data);
     } else {
       console.log('sm-th wrong');
     }
@@ -105,6 +104,10 @@ export class FirstComponent implements OnInit {
 
   createForm(form: FormGroup): void {
     this.dataRegistration.addControl('dataAbout', form);
+  }
+
+  showSignOut(): void {
+    this.router.navigate(['add-page'], {relativeTo: this.route});
   }
 }
 

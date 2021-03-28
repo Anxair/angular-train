@@ -3,8 +3,16 @@ import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import {MainComponent} from './main/main/main.component';
 
+
 const routes: Routes = [
-  {path: '', component: MainComponent}
+  {
+    path: '', component: MainComponent
+  },
+  {
+    path: 'add-page',
+    loadChildren: () => import('./add-page/add-page.module')
+      .then((m) => m.AddPageModule),
+  }
 ];
 
 @NgModule({

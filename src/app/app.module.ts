@@ -24,6 +24,7 @@ import {reducers} from './store';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {EffectsModule} from '@ngrx/effects';
 import {FormsEffects} from './store/effects/forms.effects';
+import {clearState} from '../app/store/reducers/forms.reducer';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import {FormsEffects} from './store/effects/forms.effects';
     MainComponent,
     FirstComponent,
     SecondComponent,
-    ThirdComponent
+    ThirdComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,8 +46,7 @@ import {FormsEffects} from './store/effects/forms.effects';
     MatSelectModule,
     MatIconModule,
     MatButtonModule,
-    [StoreModule.forRoot({forms: forms.reducer})],
-    [StoreModule.forRoot(reducers)],
+    StoreModule.forRoot({...reducers, forms: forms.reducer}, { metaReducers: [clearState] }),
     EffectsModule.forRoot([FormsEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     MatProgressSpinnerModule

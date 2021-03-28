@@ -1,6 +1,7 @@
 import {DataForm} from '../../main/forms/first/first.component';
 import {Action, createReducer, on} from '@ngrx/store';
 import * as formActions from '../actions/forms.actions';
+import {FormsActions} from '../actions/forms.actions';
 
 export interface FormState {
   forms: DataForm[];
@@ -44,4 +45,14 @@ const formReducer = createReducer(
 
 export function reducer(state: FormState | undefined, action: Action): FormState {
   return formReducer(state, action);
+}
+
+// tslint:disable-next-line:no-shadowed-variable
+export function clearState(reducer): any {
+  return (state, action) => {
+    if (action.type === FormsActions.LogOut) {
+      state = undefined;
+    }
+    return reducer(state, action);
+  };
 }

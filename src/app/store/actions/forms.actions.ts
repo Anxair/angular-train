@@ -5,8 +5,8 @@ export enum FormsActions {
   SaveForm = '[Form] Save Form',
   GetForm = '[Form] Get Form',
   FormSavedSuccess = '[Form] Saved Success',
-  FormSavedError = '[Form] Saved Error'
-
+  FormSavedError = '[Form] Saved Error',
+  LogOut = '[Add page] Log Out'
 }
 
 export const saveForm = createAction(
@@ -26,4 +26,8 @@ export const formSavedSuccess = createAction(
 export const formSavedError = createAction(
   FormsActions.FormSavedError,
   props<{ error: string }>()
+);
+
+export const logOut = createAction(
+  FormsActions.LogOut
 );
